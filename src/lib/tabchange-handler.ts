@@ -61,5 +61,7 @@ export function onTabActivity(
 		bc.close();
 	}
 
+    handleActivity()
+    
 	return cleanUp;
 }

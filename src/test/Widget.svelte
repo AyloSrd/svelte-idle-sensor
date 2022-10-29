@@ -1,6 +1,6 @@
-<script lang="ts">
+<script>
     import { createEventDispatcher } from 'svelte'
-    import { initializeIdleSensor } from '$lib'
+    import { initializeIdleSensor } from '../../package'
 
     const dispatch = createEventDispatcher()
 

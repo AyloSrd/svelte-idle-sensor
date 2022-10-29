@@ -1,7 +1,8 @@
 <script>
-    let count = 1
+    let count = 0
 </script>
 
 <button on:click={() => count += 1}>
-    {count}
+   <label>+</label>
 </button>
+<span>{count}</span>
