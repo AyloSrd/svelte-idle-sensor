@@ -1,14 +1,10 @@
-import type { EventTypeName, TabActivityEvent } from './utils';
+import type { EventTypeName, IdleEvent, RemindEvent, ActivityEvent, TabActivityEvent } from './utils';
 import type { Readable } from 'svelte/store';
 
 import { EVENTS, FIFTEEN_MINUTES, IS_BROWSER, THROTTLE_DELAY, throttler } from './utils';
 import { onTabActivity as onTabActivityImported } from './tabchange-handler.js';
 import { writable } from 'svelte/store';
 import { onMount, onDestroy } from 'svelte';
-
-type IdleEvent = CustomEvent<{ lastFiredEvent: Event }>
-type RemindEvent = IdleEvent
-type ActivityEvent = CustomEvent<{ triggeringEvent: Event }>
 
 export interface IdleSensorOptions {
 	crosstab?: boolean;

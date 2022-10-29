@@ -1,3 +1,6 @@
+export type IdleEvent = CustomEvent<{ lastFiredEvent: Event }>
+export type ActivityEvent = CustomEvent<{ triggeringEvent: Event }>
+export type RemindEvent = IdleEvent
 export type TabActivityEvent = CustomEvent<{ isMainTab: boolean }>
 
 export type EventTypeName = keyof DocumentEventMap
