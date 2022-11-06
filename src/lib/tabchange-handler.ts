@@ -1,8 +1,12 @@
 import { EVENTS, IS_BROWSER, THROTTLE_DELAY, throttler } from './utils'
 import { BroadcastChannelPolyfill } from './BroadcastChannelPolyfill.js'
 
+enum MSG {
+    new_activity = 'activity in another tab',
+    need_main = 'main tab shut down'
+}
+
 const BROADCAST_CHANNEL = 'cross-tab-channel'
-const ACTIVITY_MSG = 'activity in another tab'
 const TAB_ACTIVITY_EVENT_NAME = 'tabActivity'
 
 
@@ -12,7 +16,7 @@ export function onTabActivity(
 	if (!IS_BROWSER) return () => undefined;
 
 	let isMainTab = false;
-
+    let mainAgainTimeoutId;
 	const shouldThrottle = throttler(THROTTLE_DELAY * 2);
 
 	const bc = window.BroadcastChannel
@@ -29,24 +33,39 @@ export function onTabActivity(
 		}
 	}
 
+    window.addEventListener('beforeunload', handleBeforeUnload)
+
 	function handleMessage(evt: MessageEvent) {
-		if (evt.data === ACTIVITY_MSG) {
+		if (evt.data === MSG.new_activity) {
+            clearTimeout(mainAgainTimeoutId)
 			isMainTab = false;
 			handleTabActivity(new CustomEvent(TAB_ACTIVITY_EVENT_NAME, { detail: { isMainTab } }));
 		}
+        if (evt.data === MSG.need_main) {
+            mainAgainTimeoutId = setTimeout(() => {
+                isMainTab = true
+                handleTabActivity(new CustomEvent(TAB_ACTIVITY_EVENT_NAME, { detail: { isMainTab } }));
+        		bc.postMessage(MSG.new_activity);
+            }, Math.floor(Math.random() * 200) * 10)
+        }
 	}
 
 	function handleActivity() {
+        clearTimeout(mainAgainTimeoutId)
 		if (isMainTab) return;
 		if (shouldThrottle()) return;
 		isMainTab = true;
 		handleTabActivity(new CustomEvent(TAB_ACTIVITY_EVENT_NAME, { detail: { isMainTab } }));
-		bc.postMessage(ACTIVITY_MSG);
+		bc.postMessage(MSG.new_activity);
 	}
 
 	function handleVisibilityChange() {
 		if (document.visibilityState === 'visible') handleActivity();
 	}
+
+    function handleBeforeUnload() {
+        if (isMainTab) bc.postMessage(MSG.need_main)
+    }
 
 	function cleanUp() {
 		for (const evt of EVENTS) {
@@ -57,11 +76,12 @@ export function onTabActivity(
 			}
 		}
 
+        window.removeEventListener('beforeunload', handleBeforeUnload)
 		bc.removeEventListener('message', handleMessage);
 		bc.close();
 	}
 
     handleActivity()
-    
+
 	return cleanUp;
 }
