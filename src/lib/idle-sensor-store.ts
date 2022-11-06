@@ -7,7 +7,7 @@ import { writable } from 'svelte/store';
 import { onMount, onDestroy } from 'svelte';
 
 export interface IdleSensorOptions {
-	crosstab?: boolean;
+	detectTabActivity?: boolean;
 	events?: EventTypeName[];
 	idleTimeout?: number;
 	reminderDuration?: number;
@@ -160,7 +160,7 @@ function handleTabActivityLocal(evt: TabActivityEvent) {
 
 export function initializeIdleSensor({
 	idleTimeout = FIFTEEN_MINUTES,
-	crosstab = false,
+	detectTabActivity = false,
 	events = EVENTS,
 	reminderDuration = 0,
 	startManually = false,
@@ -185,7 +185,7 @@ export function initializeIdleSensor({
 	onRemindLocal = onRemind;
     onTabActivityLocal = onTabActivity;
 
-	cleanTabListeners = crosstab ? onTabActivityImported(handleTabActivityLocal) : null;
+	cleanTabListeners = detectTabActivity ? onTabActivityImported(handleTabActivityLocal) : null;
 
 	onMount(() => {
 		if (startManually) return;

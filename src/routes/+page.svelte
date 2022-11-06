@@ -9,7 +9,7 @@
 
     initializeIdleSensor({
         idleTimeout: 500,
-        crosstab: true,
+        detectTabActivity: true,
         events: ['click'],
         reminderDuration: 500,
         onIdle: () => status = 'idle',

@@ -4,7 +4,7 @@
     import { EVENTS, FIFTEEN_MINUTES } from './utils';
 
     export let idleTimeout = FIFTEEN_MINUTES
-	export let crosstab = false
+	export let detectTabActivity = false
 	export let events = EVENTS
 	export let reminderDuration = 0
 	export let startManually = false
@@ -13,7 +13,7 @@
 
     initializeIdleSensor({
         idleTimeout,
-        crosstab,
+        detectTabActivity,
         events,
         reminderDuration,
         startManually,
