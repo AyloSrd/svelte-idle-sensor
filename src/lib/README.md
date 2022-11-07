@@ -19,25 +19,26 @@ pnpm add svelte-idle-sensor
 ## Basic Example
 ```svelte
 <script lang="ts">
-    import { createEventDispatcher } from 'svelte'
-    import { idle, initializeIdleSensor } from '$lib'
+    import { initializeIdleSensor } from 'svelte-idle-sensor'
 
-    const dispatch = createEventDispatcher()
-    let show = true
-    let status = 'initial'
-    let tab = ''
-
-    initializeIdleSensor({
-        idleTimeout: 500,
+    const { idle, reminding, reset } = initializeIdleSensor({
+        idleTimeout: 600_000,
         multitabSensor: true,
-        events: ['click'],
-        reminderDuration: 500,
-        onIdle: () => status = 'idle',
-        onActive: () => status = 'active',
-        onRemind: () => status = 'reminding',
-        onTabActivity: ({ detail: { isMainTab } }) => tab = isMainTab ? 'main tab' : 'secondary tab',
+        reminderDuration: 120_000,
+        onTabActivity: ({ detail: { isMainTab } }) =>
+            isMainTab
+                ? resumeExpensiveComputation()
+                : pauseExpensiveComputation()
     })
 </script>
+
+{#if $idle}
+    <LogoutPage />
+{:else if $reminding}
+    <AreYouStillTherePopup on:confirm={reset}>
+{:else}
+    <HomePage />
+{/if}
 ```
 
 ## Developing
