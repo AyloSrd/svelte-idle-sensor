@@ -6,7 +6,7 @@
 
     initializeIdleSensor({
         idleTimeout: 1000,
-        detectTabActivity: true,
+        multitabSensor: true,
         events: ['click'],
         reminderDuration: 1000,
         onIdle: () => status = 'idle',

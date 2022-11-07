@@ -1,17 +1,43 @@
-# create-svelte
+<p>
+  <img width="100%" src="../../svelte-log.png" alt="Svelte idle-sensor logo">
+</p>
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+# Svelte idle-sensor
 
-## Creating a project
+A Svelte library to track the user's idle status and react to its changes.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Installation
 
 ```bash
-# create a new project in the current directory
-npm create svelte@latest
+npm install svelte-idle-sensor
+# or
+yarn add svelte-idle-sensor
+# or
+pnpm add svelte-idle-sensor
+```
 
-# create a new project in my-app
-npm create svelte@latest my-app
+## Basic Example
+```svelte
+<script lang="ts">
+    import { createEventDispatcher } from 'svelte'
+    import { idle, initializeIdleSensor } from '$lib'
+
+    const dispatch = createEventDispatcher()
+    let show = true
+    let status = 'initial'
+    let tab = ''
+
+    initializeIdleSensor({
+        idleTimeout: 500,
+        multitabSensor: true,
+        events: ['click'],
+        reminderDuration: 500,
+        onIdle: () => status = 'idle',
+        onActive: () => status = 'active',
+        onRemind: () => status = 'reminding',
+        onTabActivity: ({ detail: { isMainTab } }) => tab = isMainTab ? 'main tab' : 'secondary tab',
+    })
+</script>
 ```
 
 ## Developing
