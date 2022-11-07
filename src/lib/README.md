@@ -40,7 +40,8 @@ pnpm add svelte-idle-sensor
     <HomePage />
 {/if}
 ```
-
+## Initialize the sensor
+You can start the sensor either by calling `initializeIdleSensor`, or by using the `<IdleSensor />` component. Generally, the initialized sensor will start onMount, unless you have set `startManually` to` true` in the configuration object (see [configuration](#configuration)).
 ## Developing
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
