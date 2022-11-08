@@ -42,6 +42,26 @@ pnpm add svelte-idle-sensor
 ```
 ## Initialize the sensor
 You can start the sensor either by calling `initializeIdleSensor`, or by using the `<IdleSensor />` component. Generally, the initialized sensor will start onMount, unless you have set `startManually` to` true` in the configuration object (see [configuration](#configuration)).
+
+`initializeIdleSensor` must be called inside a component, but you don't have to wrap it in the component's `onMount` function, as it will be manages internally by the sensor itself.
+
+Initializing the sensor, will also activate the `start`, `stop` and `reset` functions (see [interact with the sensor](#interactions)). If you don't initialize the sensor, calling them will not work.
+
+```svelte
+// with initializeIdleSensor()
+<script>
+    import { initializeIdleSensor } from 'svelte-idle-sensor'
+
+    initializeIdleSensor()
+</script>
+
+// with <IdleSensor />
+<script>
+    import { IdleSensor } from 'svelte-idle-sensor'
+</script>
+<IdleSensor />
+
+```
 ## <a id="configuration"></a>Configure the sensor
 You can start the sensor either by calling `initializeIdleSensor`, or by using the `<IdleSensor />` component. Generally, the initialized sensor will start onMount, unless you have set `startManually` to` true` in the configuration object (see [configuration](#configuration)).
 ## Developing
