@@ -4,7 +4,7 @@
     import { EVENTS, FIFTEEN_MINUTES } from './utils';
 
     export let idleTimeout = FIFTEEN_MINUTES
-	export let multitabSensor = false
+	export let multitabSensor
 	export let events = EVENTS
 	export let reminderDuration = 0
 	export let startManually = false

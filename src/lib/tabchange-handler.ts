@@ -6,22 +6,23 @@ enum MSG {
     need_main = 'main tab shut down'
 }
 
-const BROADCAST_CHANNEL = 'cross-tab-channel'
+const BROADCAST_CHANNEL = (key: string) => `cross-tab-channel-${key}`
 const TAB_ACTIVITY_EVENT_NAME = 'tabActivity'
 
 
 export function onTabActivity(
+    channelKey: string,
 	handleTabActivity: (evt: CustomEvent<{ isMainTab: boolean }>) => void
 ) {
 	if (!IS_BROWSER) return () => undefined;
 
 	let isMainTab = false;
-    let mainAgainTimeoutId;
+    let mainAgainTimeoutId: ReturnType<typeof setTimeout>;
 	const shouldThrottle = throttler(THROTTLE_DELAY * 2);
 
 	const bc = window.BroadcastChannel
-		? new BroadcastChannel(BROADCAST_CHANNEL)
-		: new BroadcastChannelPolyfill(BROADCAST_CHANNEL);
+		? new BroadcastChannel(BROADCAST_CHANNEL(channelKey))
+		: new BroadcastChannelPolyfill(BROADCAST_CHANNEL(channelKey));
 
 	bc.addEventListener('message', handleMessage);
 
