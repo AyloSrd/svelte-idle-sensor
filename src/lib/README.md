@@ -79,6 +79,10 @@ The options, all of which are non-mandatory as they all have a default value, ar
 - **onTabActivity | on:tabActivity**: `(tabActivityEvt: CustomEvent<{ isMainTab: boolean }>) => void`; callback called when a change of tab is detected (e.g. a new instance of the sensor is open in a different tab). A `TabActivityEvent` storing an `isMainTab: boolean` property in its `detail`, is passed as a parameter. It defaults to an empty function.
 
 ## <a id='interactions'></a>Interact with the sensor
+To interact with the timers, `createIdleTimer` provides:
+
+- **idle** and **reminding**: `Accessor<boolean>`; these two accessors report the user status. They do not concur.
+- **start**, **stop** and **reset**: `() => void`; allow rispectively to start and stop the timers, and to reset them. `start` and `reset`, create a custom `manualstart` and `manualreset` event, that will be passed to the `onIdle` and `onRemind` callbacks if no oher activity occurs (there's another custom event, `mount`, created when timers start automatically). Finally `stop` and `reset` don't trigger `onActive`.
 
 ## Developing
 
