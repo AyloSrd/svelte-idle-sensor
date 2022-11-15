@@ -45,7 +45,7 @@ You can start the sensor either by calling `initializeIdleSensor`, or by using t
 
 `initializeIdleSensor` must be called inside a component, but you don't have to wrap it in the component's `onMount` function, as it will be manages internally by the sensor itself.
 
-Initializing the sensor, will also activate the `start`, `stop` and `reset` functions (see [interact with the sensor](#interactions)). If you don't initialize the sensor, calling them will not work.
+Initializing the sensor, will also activate the `start`, `stop` and `reset` functions (see [interacting with the sensor](#interactions)). If you don't initialize the sensor, calling them will not work.
 
 There can be only one sensor per application, therefore calling `initializeIdleSensor` or instantiating `<IdleSensor />` multiple times in the app, will result in a re-initialization of the same sensor, and not in several sensors running.
 ```svelte
@@ -92,7 +92,7 @@ Finally, `idle`, `remind`, `start`, `stop`, and `reset`, are also returned by `i
 // named import
 <script>
     import { idle, remind, start, stop, reset } from 'svelte-idle-sensor'
-
+    // do something
 </script>
 
 // with initializeIdleSensor()
@@ -100,6 +100,7 @@ Finally, `idle`, `remind`, `start`, `stop`, and `reset`, are also returned by `i
     import { initializeIdleSensor } from 'svelte-idle-sensor'
 
     const { idle, remind, start, stop, reset } = initializeIdleSensor()
+    // do something
 </script>
 
 ```
