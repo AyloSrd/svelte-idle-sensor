@@ -78,31 +78,28 @@ The options, all of which are non-mandatory as they all have a default value, ar
 - **multitabSensor**: `strings`; coordinates sensors open on different tabs. To activate the option, you will pass a string (any short key identifying the page/app) that will be used to name the channel (it uses the BroadcastChannel API under the hood) used by the sensors to communicate. The last tab including a sensor that the user interacts with will qualify as the main tab; when another tab becomes the main one, the other sensors are stopped. If a tab becomes the main tab again, its sensor is turned on, unless `startManually` is set to `true`. This is to meet the case when the user is working on a tab, while another instance of the timer is running on another one: coordinating the sensor will prevent the inactive one to fire any idle callback that will affect the tab currently in use too (e.g. disconnecting the user).  When this option is on, closing the main tab will result in one of the other tabs being chosen randomly as the main one in about 1.5 seconds (unless any other event occurs meanwhile). Activating this option will make the `onTabActivity | on:tabActivity` available. It defaults to `undefined`.
 - **onTabActivity | on:tabActivity**: `(tabActivityEvt: CustomEvent<{ isMainTab: boolean }>) => void`; callback called when a change of tab is detected (e.g. a new instance of the sensor is open in a different tab). A `TabActivityEvent` storing an `isMainTab: boolean` property in its `detail`, is passed as a parameter. It defaults to an empty function.
 
-## <a id='interactions'></a>Interact with the sensor
-To interact with the timers, `createIdleTimer` provides:
+## <a id='interactions'></a>Interacting with the sensor
+To interact with the sensor, in addition to passing different configuration callbacks, `idle-sensor` provides several stores and methods.
+- **idle** and **reminding**: `Readable<boolean>`; these two readable stores report the user status. They do not concur.
+- **start**, **stop** and **reset**: `() => void`; allow respectively to start, stop and reset the sensor. `start` and `reset`, create a custom `manualstart` and `manualreset` event, that will be stored by stored as `lastFiredEvent` by the `idle` and `remind` events passsed to the `onIdle` and `onRemind` callbacks if no other activity occurs (there's another custom event, `mount`, created when timers start automatically). Finally, `stop` and `reset` don't trigger `onActive`.
 
-- **idle** and **reminding**: `Accessor<boolean>`; these two accessors report the user status. They do not concur.
-- **start**, **stop** and **reset**: `() => void`; allow rispectively to start and stop the timers, and to reset them. `start` and `reset`, create a custom `manualstart` and `manualreset` event, that will be passed to the `onIdle` and `onRemind` callbacks if no oher activity occurs (there's another custom event, `mount`, created when timers start automatically). Finally `stop` and `reset` don't trigger `onActive`.
+These can be imported directly from `svelte-idle-sensor`, regardless of whether the sensor has been initialized by `` or component.
+Once the sensor has been initialized, you can import them anywhere in the app and they'll be working, thanks to Svelte stores' properties.
 
-## Developing
+Finally, `idle`, `remind`, `start`, `stop`, and `reset`, are also returned by `initializeIdleSensor`
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+```svelte
+// named import
+<script>
+    import { idle, remind, start, stop, reset } from 'svelte-idle-sensor'
 
-```bash
-npm run dev
+</script>
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+// with initializeIdleSensor()
+<script>
+    import { initializeIdleSensor } from 'svelte-idle-sensor'
+
+    const { idle, remind, start, stop, reset } = initializeIdleSensor()
+</script>
+
 ```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
