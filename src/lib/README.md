@@ -1,8 +1,4 @@
-<p>
-  <img width="100%" src="../../svelte-log.png" alt="Svelte idle-sensor logo">
-</p>
-
-# Svelte idle-sensor
+# Svelte idle-sensor 💤
 
 A Svelte library to track the user's idle status and react to its changes.
 
