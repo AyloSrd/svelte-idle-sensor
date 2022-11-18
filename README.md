@@ -1,6 +1,9 @@
+<p>
+  <img width="100%" src="/svelte-idle-sensor-banner.jpg" alt="Svelte idle-sensor banner">
+</p>
 # Svelte idle-sensor 💤
 
-A Svelte library to track the user's idle status and react to its changes.
+Another Svelte library to track the user's idle status and react to its changes.
 
 ## Installation
 
@@ -36,6 +39,7 @@ pnpm add svelte-idle-sensor
     <HomePage />
 {/if}
 ```
+[Here](https://svelte.dev/repl/631d14ec43bf4099aacb1cf15ce6a15c?version=3.53.1) a Svelte REPL.
 ## Initialize the sensor
 You can start the sensor either by calling `initializeIdleSensor`, or by using the `<IdleSensor />` component. Generally, the initialized sensor will start onMount, unless you have set `startManually` to` true` in the configuration object (see [configuration](#configuration)).
 
@@ -100,3 +104,6 @@ Finally, `idle`, `remind`, `start`, `stop`, and `reset`, are also returned by `i
 </script>
 
 ```
+
+## Acknowledgments
+This library is inspired by [react-idle-timer](https://idletimer.dev/)

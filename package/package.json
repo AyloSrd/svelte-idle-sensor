@@ -1,6 +1,9 @@
 {
   "name": "svelte-idle-sensor",
-  "version": "0.0.1",
+  "license": "MIT",
+  "author": "AyloSrd",
+  "repository": "AyloSrd/svelte-idle-sensor",
+  "version": "0.0.2",
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
@@ -32,7 +35,6 @@
   "exports": {
     "./package.json": "./package.json",
     "./BroadcastChannelPolyfill": "./BroadcastChannelPolyfill.js",
-    "./Counter.svelte": "./Counter.svelte",
     "./IdleSensor.svelte": "./IdleSensor.svelte",
     "./README.md": "./README.md",
     "./idle-sensor-store": "./idle-sensor-store.js",
@@ -40,5 +42,22 @@
     "./tabchange-handler": "./tabchange-handler.js",
     "./utils": "./utils.js"
   },
-  "svelte": "./index.js"
+  "svelte": "./index.js",
+  "keywords": [
+    "idle",
+    "idle-timer",
+    "timer",
+    "svelte",
+    "session",
+    "activity",
+    "session timeout",
+    "session expired",
+    "svelte idle",
+    "svelte store",
+    "svelte idle sensor",
+    "idle detection",
+    "activity detection",
+    "crosstab",
+    "multitab"
+  ]
 }
