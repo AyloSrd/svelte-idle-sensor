@@ -3,7 +3,7 @@
   "license": "MIT",
   "author": "AyloSrd",
   "repository": "AyloSrd/svelte-idle-sensor",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
