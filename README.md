@@ -3,7 +3,7 @@
 </p>
 # Svelte idle-sensor 💤
 
-Another Svelte library to track the user's idle status and react to its changes.
+Another Svelte library to detect and deal with your users' idleness.
 
 ## Installation
 
@@ -22,7 +22,7 @@ pnpm add svelte-idle-sensor
 
     const { idle, reminding, reset } = initializeIdleSensor({
         idleTimeout: 600_000,
-        multitabSensor: true,
+        multitabSensor: 'my-app-sensor',
         reminderDuration: 120_000,
         onTabActivity: ({ detail: { isMainTab } }) =>
             isMainTab
@@ -39,7 +39,30 @@ pnpm add svelte-idle-sensor
     <HomePage />
 {/if}
 ```
+
+or
+
+```svelte
+<script lang="ts">
+    import { IdleSensor, idle, reminding } from 'svelte-idle-sensor'
+</script>
+
+<IdleSensor 
+    idleTimeout={600_000}
+    multitabSensor={true}
+    reminderDuration={120_000}
+    on:tabActivity={hanldeTabhactivity}
+/>
+{#if $idle}
+    <LogoutPage />
+{:else if $reminding}
+    <AreYouStillTherePopup on:confirm={reset}>
+{:else}
+    <HomePage />
+{/if}
+```
 [Here](https://svelte.dev/repl/631d14ec43bf4099aacb1cf15ce6a15c?version=3.53.1) a Svelte REPL.
+
 ## Initialize the sensor
 You can start the sensor either by calling `initializeIdleSensor`, or by using the `<IdleSensor />` component. Generally, the initialized sensor will start onMount, unless you have set `startManually` to` true` in the configuration object (see [configuration](#configuration)).
 

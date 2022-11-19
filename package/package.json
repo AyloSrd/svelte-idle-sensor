@@ -3,7 +3,7 @@
   "license": "MIT",
   "author": "AyloSrd",
   "repository": "AyloSrd/svelte-idle-sensor",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
@@ -58,6 +58,8 @@
     "idle detection",
     "activity detection",
     "crosstab",
-    "multitab"
+    "multitab",
+    "idle detection",
+    "session reminder"
   ]
 }
