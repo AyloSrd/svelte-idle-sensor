@@ -44,7 +44,7 @@ or
 
 ```svelte
 <script lang="ts">
-    import { IdleSensor, idle, reminding } from 'svelte-idle-sensor'
+    import { IdleSensor, idle, reminding, reset } from 'svelte-idle-sensor'
 </script>
 
 <IdleSensor 
