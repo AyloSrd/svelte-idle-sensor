@@ -1,6 +1,7 @@
 <p>
   <img width="100%" src="/svelte-idle-sensor-banner.jpg" alt="Svelte idle-sensor banner">
 </p>
+
 # Svelte idle-sensor 💤
 
 Another Svelte library to detect and deal with your users' idleness.
